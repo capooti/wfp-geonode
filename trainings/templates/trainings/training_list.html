@@ -1,0 +1,27 @@
+{% extends "trainings/training_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %} {% trans "Explore Trainings" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}documents documents-list explore{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    {% if perms.trainings.add_training %}
+        <a href="{% url "training_upload" %}" class="btn btn-danger btn-large pull-right">{% trans "Upload Trainings" %}</a>
+    {% endif %}
+  <h2>{% trans "Explore Trainings" %}</h2>
+</div>
+  {% include "trainings/_training_content.html" %}
+{% endblock %}
+
+{% block extra_script %}
+  <script type="text/javascript">
+    SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='trainings' %}';
+    FILTER_TYPE = 'training';
+  </script>
+  {% with include_spatial='true' %}
+  {% include 'trainings/search_scripts.html' %}
+  {% endwith %}
+{% endblock extra_script %}

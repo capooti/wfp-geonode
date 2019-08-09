@@ -1,0 +1,85 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load dialogos_tags %}
+{% load agon_ratings_tags %}
+{% load bootstrap_tags %}
+{% load base_tags %}
+
+{% block title %}{{ document.title }} — {{ block.super }}{% endblock %}
+
+{% block head %}
+
+{{ block.super }}
+{% endblock %}
+
+
+{% block body_class %}trainings{% endblock %}
+
+{% block body_outer %}
+
+<div class="page-header">
+  <h2 class="page-title">{{ training.title }}</h2>
+</div>
+
+  <div class="action-group pull-right">
+    <div class="btn-group">
+      <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+        {% trans "Download Training" %}
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="{% if training.manual %}{{ training.manual.url }}{% endif %}">{% trans "Download Training" %} <i class="icon-chevron-right"></i></a></li>
+        <li><a href="{% url 'training_download' training.id %}">{% trans "Download Datasets" %} <i class="icon-chevron-right"></i></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <a href="{% if training.manual %}{{ training.manual.url }}{% endif %}" >
+  <img class="training" src="{{ MEDIA_URL }}{{ training.logo }}" />
+  </a>
+
+  <div class="tab-content">
+
+    <article class="description tab-pane active" id="info">
+
+    <dl class="dl-horizontal">
+
+      <dt>{% trans "Title" %}</dt>
+      <dd>{{ training.title }}</dd>
+
+      <dt>{% trans 'Publication Date' %}</dt>
+      <dd>{{ training.publication_date }}</dd>
+
+      <dt>{% trans 'Abstract' %}</dt>
+      <dd>{{ training.abstract }}</dd>
+
+      <dt>{% trans 'Tags' %}</dt>
+      <dd>
+      {% for tag in training.keywords.all %}
+        <a href="{% url 'trainings_browse' tag.name %}">
+          {{ tag.name }}
+        </a>
+      {% endfor %}
+      </dd>
+
+      <dt>{% trans 'Owner' %}</dt>
+      <dd>WFP Geospatial Support Unit (GSU)</dd>
+
+      {% if training.layers.all.count > 0 %}
+        <dt>{% trans "Layers:" %}</dt>
+        {% for layer in training.layers.all %}
+            <dd>
+              <a href="{% url 'layer_detail' layer.typename %}">
+              {{ layer.title }}</a>
+            </dd>
+          {% endfor %}
+      {% endif %}
+
+    </dl>
+
+      <p>For any question, please contact: {{ THEME_ACCOUNT_CONTACT_EMAIL }}</p>
+    </article>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,2 @@
+# GeoNode
+GeoNode==2.10

@@ -1,0 +1,69 @@
+{% load i18n %}
+{% if SEARCH_FILTERS.TEXT_ENABLED %}
+<nav class="filter">
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-down"></i>{% trans "Text" %}</a></h4>
+  <ul class="nav open" id="text">
+    <li>
+      <div class="input-group">
+      <input name="text_search_input" id="text_search_input" ng-model="text_query" type="text"
+             placeholder="Search by text" class="form-control">
+      <span class="input-group-btn">
+          <button class="btn btn-primary" type="submit" id="text_search_btn"><i class="fa fa-search"></i></button>
+      </span>
+      </div>
+    </li>
+  </ul>
+</nav>
+{% endif  %}
+<nav class="filter">
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i> {% trans "Categories" %}</a></h4>
+  <ul class="nav closed" id="categories">
+    {% verbatim %}
+      <li ng-repeat="category in categories" ng-if="category.count > 0">
+        <a data-value="{{ category.name }}" data-filter="categories__name__in" ng-click="multiple_choice_listener($event)" class="{{category.active}}">{{ category.name }}
+          <span class="badge pull-right">{{ category.count }}</span>
+        </a>
+      </li>
+    {% endverbatim %}
+  </ul>
+</nav>
+{% if SEARCH_FILTERS.REGION_ENABLED %}
+<nav class="filter">
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>{% trans "Regions" %}</a></h4>
+  <ul class="nav closed" id="regions">
+    {% verbatim %}
+      <li ng-repeat="region in regions" ng-if="region.count > 0">
+        <a data-value="{{ region.code }}" data-filter="regions__code__in"
+         ng-click="multiple_choice_listener($event)" class="{{region.active}}">{{ region.name }}
+          <span class="badge pull-right">{{ region.count }}</span>
+        </a>
+      </li>
+    {% endverbatim %}
+  </ul>
+</nav>
+{% endif %}
+{% if SEARCH_FILTERS.KEYWORDS_ENABLED %}
+<nav class="filter">
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i> {% trans "Keywords" %}</a></h4>
+  <ul class="nav closed" id="keywords">
+    {% verbatim %}
+      <li ng-repeat="keyword in keywords" ng-if="keyword.count > 0">
+        <a data-value="{{ keyword.slug }}" data-filter="keywords__slug__in" ng-click="multiple_choice_listener($event)" class="{{keyword.active}}">{{ keyword.name }}
+          <span class="badge pull-right">{{ keyword.count }}</span>
+        </a>
+      </li>
+    {% endverbatim %}
+  </ul>
+</nav>
+{% endif %}
+<nav class="filter">
+  <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>{% trans "Date" %}</a></h4>
+  <ul class="nav closed" id="date_start">
+    <label>{% trans "Date begins after:" %}</label>
+    <li><input value="yyyy-mm-dd" data-date-format="YYYY-MM-DD" type="text" class="datepicker" placeholder="{% trans 'yyyy-mm-dd' %}" ng-model="date_query.date__gte" /></li>
+  </ul>
+  <ul class="nav closed" id="date_end">
+    <label>{% trans "Date ends before:" %}</label>
+    <li><input value="yyyy-mm-dd" data-date-format="YYYY-MM-DD" type="text" class="datepicker" placeholder="{% trans 'yyyy-mm-dd' %}" ng-model="date_query.date__lte" /></li>
+  </ul>
+</nav>
