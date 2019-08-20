@@ -34,9 +34,6 @@ except ImportError:
 #
 PROJECT_NAME = 'wfp_geonode'
 
-
-ALLOWED_HOSTS = ['localhost', '10.11.41.175']
-
 # add trailing slash to site url. geoserver url will be relative to this
 if not SITEURL.endswith('/'):
     SITEURL = '{}/'.format(SITEURL)
