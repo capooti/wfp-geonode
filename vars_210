@@ -1,0 +1,9 @@
+export DATABASE_URL=postgis://wfp:wfp@localhost:5432/wfp_24
+export DEFAULT_BACKEND_DATASTORE=data
+export GEODATABASE_URL=postgis://wfp:wfp@localhost:5432/geonode_data
+export ALLOWED_HOSTS="['localhost', '192.168.100.10']"
+export STATIC_ROOT=/home/vagrant/www/geonode/static/
+export GEOSERVER_LOCATION=http://localhost:8080/geoserver/
+export GEOSERVER_PUBLIC_LOCATION=http://localhost:8080/geoserver/
+export GEOSERVER_ADMIN_PASSWORD=geoserver
+export SESSION_EXPIRED_CONTROL_ENABLED=False
