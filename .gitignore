@@ -40,11 +40,4 @@ jetty-runner.xml
 wait-for-databases.sh
 .env
 
-fixtures/initial_data.json
-
-wfp_geonode/local_settings.py.sample
-wfp_geonode/version.py
-wfp_geonode/wsgi.py
-
-wfp_geonode/__init__.py
 wfp_geonode/local_settings.py
