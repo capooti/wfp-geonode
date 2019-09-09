@@ -32,11 +32,24 @@ Downgrade psycopg2:
 pip install psycopg2==2.7.7
 ```
 
-Apply migrations:
+Apply migrations and download basic fixtures:
 
 ```
 cd wfp-geonode
 ./manage.py migrate --fake-initial
+paver sync
+```
+
+Fix migrations for upload application:
+
+```
+delete from django_migrations where app = 'upload';
+drop table upload_upload cascade;
+drop table upload_uploadfile;
+```
+
+```
+./manage.py migrate upload
 ```
 
 Upgrade psycopg2:
@@ -53,4 +66,6 @@ To create a superuser I had to drop the following constraints (we can re-enable 
 alter table people_profile alter column last_login drop not null;
 ```
 
+```
 ./manage createsuperuser
+```
